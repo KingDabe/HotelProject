@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!-- 경로가 templates/layout/layout.html을 상속받아야 하므로 -->
+<html layout:decorate="~{/layout/layout}">
+
+<meta charset="UTF-8">
+
+<div layout:fragment="content" class="content-padding">
+
+<div class="myPage">
+    <div class="sidebar" style="margin: 50px 0 50px; width: 17%; min-width: 250px; ">
+        <div class="box filter">
+            <h2>마이페이지</h2>
+            <ul class="links">
+                <li><a href="mypage/mypage">내정보</a></li>
+                <li><a href="mypage/basket">숙소 찜 목록</a></li>
+                <li><a href="mypage/my_reservation">예약내역</a></li>
+                <li><a href="mypage/delete">회원탈퇴</a></li>
+            </ul>
+           	<hr/>
+            <h2>더보기</h2>
+            <ul class="links">
+                <li class="active"><a href="notice/noticeList">공지사항</a></li>
+                <li><a href="inquiry/inquiryList">문의게시판</a></li>
+            </ul>
+        </div>
+        <!--end filter-->
+    </div>
+    <!--end sidebar-->
+
+    <div id="page-content" style="width: 30px;">
+        <div class="container" style="width: 500px;">
+            <div class="row" style="margin-left: 15px; ">
+                
+                <div class="col-md-9">
+                <h1 style="color: grey; margin-top: 50px; margin-bottom: 40px;">공지사항 </h1>
+					<!-- 검색부분 form 부분 뭉탱이 다 들어냄 -->
+                
+                    <div class="main-content">
+                    
+                    <div class="box filter" style="background-color: white; width: 270%;">
+                    
+
+                        <section id="choose-a-package" style="margin: 0; padding: 0;">
+                            
+                            <div class="table-responsive pricing-table">
+                                <table class="table">
+                                <thead>
+                                    <tr >
+                                        <th class="section" style="width: 3%; margin-left: 0%;">
+                                        </th>
+                                        <th class="width-50 opacity-50" style="width: 55%; text-align: left; font-size: 18px; padding: 8px; color: #000; opacity: 1;">
+                                            제목
+                                        </th>
+                                        <th class="section" style="width: 15%; text-align: left; font-size: 18px; padding: 8px; color: #000; opacity: 1;">
+                                            작성자
+                                        </th>
+                                        <th class="section" style="width: 15%; text-align: left; font-size: 18px; padding: 8px; color: #000; opacity: 1;">
+                                            작성일
+                                        </th>
+                                        <th class="section" style="width: 15%; text-align: left; font-size: 18px; padding: 8px; color: #000; opacity: 1;">
+                                            조회수
+                                        </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                 <tr th:each="lists : ${lists}">
+                                        <th class="section" style="width: 3%; font-size: 18px">
+                                            [[${lists.notice_num}]]
+                                        </th>
+                                        
+                                        <th class="section"style="width: 15%; font-size: 18px">
+                                        <a th:href="@{|${articleUrl}&num=@{${lists.notice_num}}|}">
+											[[${lists.subject}]]
+										</a>
+                                        </th>
+                                        <th class="section"style="width: 15%; font-size: 18px">
+                                            [[${lists.userid}]]
+                                        </th>
+                                        <th class="section" style="width: 15%; font-size: 18px">
+                                            [[${#dates.format(lists.created, 'yyyy/MM/dd')}]]
+                                        </th>
+                                        <th class="section" style="width: 15%; font-size: 18px">
+                                           	[[${lists.hitCount}]]
+                                        </th>
+                                     </tr>
+                                 </tbody>
+                                </table>
+                                <td>
+                                <div th:if="${sessionUser != null and sessionUser.id == 'admin'}">
+									<input type="button" value="작성하기"
+		                            	style="width: 160px; margin-left: 650px; font-size: 25px"
+								        class="btn btn-framed btn-small btn-default btn-rounded" 
+								        onclick="location.href='/notice/noticeInsert';"/>
+								</div>     
+								</td>
+								
+                                <div style="text-align: center; margin-top: 30px;" th:if="${dataCount}>0">
+									<ul>
+										<li th:utext="${pageIndexList}" style="font-size: 24px;
+										font-family: 'Gowun Batang', sans-serif; font-weight: bold;"></li>
+									</ul>
+									
+								</div>
+                            </div>
+                            	
+                            	
+                            
+                            </div>
+                            <!--end pricing-table-->
+                            
+                        </section>
+                        
+                    </div>
+                    <!--end main-content-->
+                </div>
+                <!--end col-md-9-->
+            </div>
+            <!--end row-->
+        </div>
+        <!--end container-->
+    </div>
+    <!--end page-content-->
+
+
+</div>
+
+
+</html>
+
+
+
+
+

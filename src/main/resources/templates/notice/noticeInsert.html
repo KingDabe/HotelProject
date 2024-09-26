@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!-- 경로가 templates/layout/layout.html을 상속받아야 하므로 -->
+<html layout:decorate="~{/layout/layout}">
+
+<meta charset="UTF-8">
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Gowun+Batang&display=swap');
+</style>
+
+
+
+<div layout:fragment="content" class="content-padding">
+
+<div class="myPage">
+    <div class="sidebar" style="margin: 50px 0 50px; width: 17%; min-width: 250px; ">
+        <div class="box filter">
+            <h2>마이페이지</h2>
+            <ul class="links">
+                <li><a href="mypage/mypage">내정보</a></li>
+                <li><a href="mypage/basket">숙소 찜 목록</a></li>
+                <li><a href="mypage/my_reservation">예약내역</a></li>
+                <li><a href="mypage/delete">회원탈퇴</a></li>
+            </ul>
+           	<hr/>
+            <h2>더보기</h2>
+            <ul class="links">
+                <li class="active"><a href="notice/noticeList">공지사항</a></li>
+                <li><a href="inquiry/inquiryList">문의게시판</a></li>
+            </ul>
+        </div>
+        <!--end filter-->
+    </div>
+    <!--end sidebar-->
+
+			    <div id="page-content" style="width: 30px;">
+			        <div class="container" style="margin-left: 70px;">
+			            <div class="row">
+			            <form action="/noticecreate_ok" name="noticeForm" method="post" autocomplete="off">
+			                <div class="col-md-9">
+			                    <div class="main-content">
+			                        
+			                        <section>
+			                            <h1 style="color: grey; margin-top: 40px; margin-bottom: 40px;">공지사항 작성하기 </h1>
+			                                
+			                                <div class="row">
+			                                    <div class="col-md-6">
+			                                    	<div class="form-group">
+			                                            <label for="form-contact-name" style="font-family: 'Gowun Batang', sans-serif; opacity: 1px; font-weight: bold;">공지사항 제목</label>
+			                                            <input type="text" class="form-control" name="subject0" placeholder="제목" >
+			                                            
+			                                        </div>
+			                                    </div>
+			                                    <!--end col-md-6-->        
+			                                </div>
+			                                <!--end row-->
+			                                
+			                                <div class="row">
+									            <div class="col-md-7">
+									                <div class="form-group">
+									                    <label for="form-submit-description" style="font-family: 'Gowun Batang', sans-serif; opacity: 1px; font-weight: bold;">공지사항</label>
+									                    <textarea class="form-control" style="width: 550px; resize:none;" id="context0" rows="10" name="context0" 
+									                    	placeholder="공지사항을 작성해주십시오"></textarea>
+									                </div>
+									                <!--end form-group-->
+									                <button style="width: 120px; height: 45px; font-size: 21px; margin: 3%;
+									                border: 2px solid rgba(31, 31, 31, 0.2); border-radius: 14px;" class="btn btn-primary btn-rounded scroll" 
+									                 onclick="createnotice();" type="button">작성하기</button>
+									                 <button style="width: 120px; height: 45px; font-size: 21px; margin: 3%; border: 2px solid rgba(31, 31, 31, 0.2); border-radius: 14px;" class="btn btn-primarybtn-rounded scroll" 
+									                 onclick="location.href='/notice/noticeList'" type="button">돌아가기</button>
+									            </div>
+									        </div>
+									        <!--end row-->
+			                        </section>
+			                    </div>
+			                    <!--end main-content-->
+			                    
+			                </div>
+			                <!--end col-md-9-->
+			                </form>
+			            </div>
+			            <!--end row-->
+			        </div>
+			        <!--end container-->
+			    </div>
+			    <!--end page-content-->
+	    
+		<input type="hidden" id="username" name="username" th:value="${username}"/>
+		<input type="hidden" id="userid"  name="userid" th:value="${userid}"/>
+	
+	
+</div>
+</html>
+
+<script type="text/javascript">
+
+function createnotice(){
+	
+	var f = document.noticeForm; 
+	
+	str = f.subject0.value;
+	str = str.trim();
+	if(!str){
+		alert("\n제목을 입력하시오")
+		f.subject0.focus();
+		return;
+	}
+	f.subject0.value = str;
+	
+	
+	
+	
+	str = f.context0.value;
+	str = str.trim();
+	if(!str){
+		alert("\n내용을 입력하시오")
+		f.context0.focus();
+		return;
+	}
+	f.context0.value = str;
+	
+	f.action = "notice/noticecreate_ok";
+	f.submit();
+	
+}
+	
+	
+</script>
+
+
+
+
+

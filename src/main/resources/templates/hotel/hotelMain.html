@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorate="~{/layout/layout}">
+<html layout:decorate="~{/layout/layout}" xmlns:th="http://www.thymeleaf.org">
 
 <meta charset="UTF-8">
 
@@ -10,8 +10,9 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Gowun+Batang&display=swap');
-h1,h2,input{
+h1,h2,input,figure{
 	font-family: 'Gowun Batang', sans-serif;
+	opacity: 1;
 }
 
 </style>
@@ -115,7 +116,7 @@ h1,h2,input{
 	                        <div class="item big equal-height">
 	                            <div class="item-wrapper">
 	                                <div class="image">
-	                                    <a href="hotel/main" class="wrapper">
+	                                    <a th:href="@{|/detail?hotel_id=${dto.HOTEL_ID}&check_in=${check_in_day}&check_out=${check_out_day}|}" class="wrapper">
 	                                        <div>
 	                                            <img th:src="@{|/hotel/${dto.URL}|}" alt="호텔전경사진">
 	                                        </div>
@@ -125,13 +126,13 @@ h1,h2,input{
 	                                </div>
 	                                <!--end image-->
 	                                <div class="description">
-	                                    <div class="meta">
-	                                        <span><i class="fa fa-star"></i>8.9</span>
-	                                        <span><i class="fa fa-bed"></i>365</span>
+	                                    <div class="meta" style="font-size: 15px;">
+	                                        <span><i class="fa fa-star"></i>[[${dto.AVG}]]</span>
+	                                        <span><i class="fa fa-bed"></i>[[${dto.COUNT}]]</span>
 	                                    </div>
 	                                    <div class="info">
 	                                        <figure class="label label-info">[[${dto.CATEGORY}]]</figure>
-	                                        <a href="hotel/test1"><h3>[[${dto.HOTEL_NAME}]]</h3></a>
+	                                        <a th:href="@{|/detail?hotel_id=${dto.HOTEL_ID}&check_in=${check_in_day}&check_out=${check_out_day}|}"><h3>[[${dto.HOTEL_NAME}]]</h3></a>
 	                                        <figure class="location">[[${dto.ADDR}]]</figure>
 	                                    </div>
 	                                </div>
@@ -153,76 +154,79 @@ h1,h2,input{
      
 
 
-		<!-- 부트스트랩? 기능 장소 -->
+		<!-- 부트스트랩? 기능 장소 : 5월의 추천 행사 캐러셀 : 제작 : 김어진 -->
         <div class="block">
             <div class="container">
                 <div class="title">
-                    <h2 class="center">일단 남겨만 둠</h2>
+                    <h2 class="center">서울어때가 추천하는 서울의 5월 주요 행사</h2>
                 </div>
                 <!--end title-->
+                <!-- 행사 관련 캐러셀 시작 -->
                 <div class="gallery-carousel">
                     <div class="gallery-item">
-                        <a href="blog-detail.html"><div class="image"><img src="assets/img/items/tip-01.jpg" alt=""></div></a>
+                        <a href="https://hangang.seoul.go.kr/www/eventMng/detail.do?&evntSn=59&mid=538"><div class="image"><img src="https://hangang.seoul.go.kr/www/file/editorImage.do?fileNm=0ed8ae9e91f94f21aea3f836331a84b6.jpg&day=202304" alt=""></div></a>
                         <div class="description">
-                            <a href="blog-detail.html"><h3>Silver Peak Resort</h3></a>
-                            <figure>Austria</figure>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus posuere mattis. Donec </p>
+                            <a href="https://hangang.seoul.go.kr/www/eventMng/detail.do?&evntSn=59&mid=538"><h3 style="text-align: center">2023 드론라이트쇼</h3></a>
+                            
+                            <p>수백여 대의 드론이 펼치는 화려한 불빛 쇼로 더욱 아름다운 한강의 밤하늘을 감상하세요.</p>
+                            <br/>
+                            <a href="https://hangang.seoul.go.kr/www/eventMng/detail.do?&evntSn=59&mid=538" class="btn btn-default btn-small btn-framed btn-rounded">More</a>
+                        </div>
+                    </div>
+                    <!--end gallery-item-->
+                    <div class="gallery-item">
+                        <a href="https://festival.seoul.go.kr/hangang/programs?article=27324#"><div class="image"><img src="https://festival.seoul.go.kr/files/2023/04/64420f44e3efd7.65785021-1536x922.png" alt=""></div></a>
+                        <div class="description">
+                            <a href="https://festival.seoul.go.kr/hangang/programs?article=27324#"><h3 style="text-align: center">책읽는 한강공원</h3></a>
+                           
+                            <p>뚝섬 한강공원 잔디마당에 놓인 알록달록하고 폭신한 의자에 앉아 책도 읽고 봄날의 햇살을 받으며 여유도 즐겨보세요.</p>
+                            <a href="https://festival.seoul.go.kr/hangang/programs?article=27324#" class="btn btn-default btn-small btn-framed btn-rounded">More</a>
+                        </div>
+                    </div>
+                    <!--end gallery-item-->
+                    <div class="gallery-item">
+                        <a href="https://ddp.or.kr/index.html?menuno=230&siteno=2&bbsno=469&boardno=15&bbstopno=469&act=view&subno="><div class="image"><img src="https://ddp.or.kr/usr/upload/board_thumb/zboardphotogallery0/20230310100925952.jpg" alt=""></div></a>
+                        <div class="description">
+                            <a href="https://ddp.or.kr/index.html?menuno=230&siteno=2&bbsno=469&boardno=15&bbstopno=469&act=view&subno="><h3>데이비드 호크니&브리티시 팝 아트</h3></a>
+                          
+                            <p>영국 팝아트 거장들의 작품들을 한 번에 만나 볼 수 있는 특별한 기회! 놓치지 마세요!</p>
+                            <a href="https://ddp.or.kr/index.html?menuno=230&siteno=2&bbsno=469&boardno=15&bbstopno=469&act=view&subno=" class="btn btn-default btn-small btn-framed btn-rounded">More</a>
+                        </div>
+                    </div>
+                    <!--end gallery-item-->
+                    <div class="gallery-item">
+                        <a href="https://ddp.or.kr/index.html?menuno=239&siteno=2&bbsno=570&boardno=16&bbstopno=570&act=view&subno="><div class="image"><img src="https://ddp.or.kr/usr/upload/board_thumb/zboardphotogallery1/20230421093533773.jpg" alt=""></div></a>
+                        <div class="description">
+                            <a href="https://ddp.or.kr/index.html?menuno=239&siteno=2&bbsno=570&boardno=16&bbstopno=570&act=view&subno="><h3 style="text-align: center">B-Forest : 이상한 DDP의 벨리곰</h3></a>
+                            
+                            <p>도시의 숲 속에서 만날 수 있는 특별한 벨리곰과 함께 따뜻한 5월의 봄을 만끽해보세요!</p>
+                            <a href="https://ddp.or.kr/index.html?menuno=239&siteno=2&bbsno=570&boardno=16&bbstopno=570&act=view&subno=" class="btn btn-default btn-small btn-framed btn-rounded">More</a>
+                        </div>
+                    </div>
+                    <!--end gallery-item-->
+                    <div class="gallery-item">
+                        <a href="https://www.relaxweek.kr/"><div class="image"><img src="https://relaxweek.kr/superboard/data/siteconfig/2023012710061016747815709783.jpg" alt=""></div></a>
+                        <div class="description">
+                            <a href="https://www.relaxweek.kr/"><h3 style="text-align: center">서울 릴랙스 위크</h3></a>
+                           
+                            <p>장기화된 펜데믹에 힘들고 지친 마음에 위로와 쉼표가 필요한 오늘, 서울릴랙스위크에서 나만의 안식처를 찾아보세요.</p>
                             <a href="blog-detail.html" class="btn btn-default btn-small btn-framed btn-rounded">More</a>
                         </div>
                     </div>
                     <!--end gallery-item-->
                     <div class="gallery-item">
-                        <a href="blog-detail.html"><div class="image"><img src="assets/img/items/tip-02.jpg" alt=""></div></a>
+                        <a href="http://www.boardgamecon.com/"><div class="image"><img src="https://image.news1.kr/system/photos/2023/4/24/5957071/article.jpg/dims/optimize" alt=""></div></a>
                         <div class="description">
-                            <a href="blog-detail.html"><h3>Silver Peak Resort</h3></a>
-                            <figure>Austria</figure>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus posuere mattis. Donec </p>
-                            <a href="blog-detail.html" class="btn btn-default btn-small btn-framed btn-rounded">More</a>
-                        </div>
-                    </div>
-                    <!--end gallery-item-->
-                    <div class="gallery-item">
-                        <a href="blog-detail.html"><div class="image"><img src="assets/img/items/tip-03.jpg" alt=""></div></a>
-                        <div class="description">
-                            <a href="blog-detail.html"><h3>Silver Peak Resort</h3></a>
-                            <figure>Austria</figure>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus posuere mattis. Donec </p>
-                            <a href="blog-detail.html" class="btn btn-default btn-small btn-framed btn-rounded">More</a>
-                        </div>
-                    </div>
-                    <!--end gallery-item-->
-                    <div class="gallery-item">
-                        <a href="blog-detail.html"><div class="image"><img src="assets/img/items/tip-01.jpg" alt=""></div></a>
-                        <div class="description">
-                            <a href="blog-detail.html"><h3>Silver Peak Resort</h3></a>
-                            <figure>Austria</figure>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus posuere mattis. Donec </p>
-                            <a href="blog-detail.html" class="btn btn-default btn-small btn-framed btn-rounded">More</a>
-                        </div>
-                    </div>
-                    <!--end gallery-item-->
-                    <div class="gallery-item">
-                        <a href="blog-detail.html"><div class="image"><img src="assets/img/items/tip-02.jpg" alt=""></div></a>
-                        <div class="description">
-                            <a href="blog-detail.html"><h3>Silver Peak Resort</h3></a>
-                            <figure>Austria</figure>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus posuere mattis. Donec </p>
-                            <a href="blog-detail.html" class="btn btn-default btn-small btn-framed btn-rounded">More</a>
-                        </div>
-                    </div>
-                    <!--end gallery-item-->
-                    <div class="gallery-item">
-                        <a href="blog-detail.html"><div class="image"><img src="assets/img/items/tip-03.jpg" alt=""></div></a>
-                        <div class="description">
-                            <a href="blog-detail.html"><h3>Silver Peak Resort</h3></a>
-                            <figure>Austria</figure>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus posuere mattis. Donec </p>
-                            <a href="blog-detail.html" class="btn btn-default btn-small btn-framed btn-rounded">More</a>
+                            <a href="http://www.boardgamecon.com/"><h3 style="text-align: center">보드게임콘</h3></a>
+                           
+                            <p>누구나 쉽고 재미있게 즐길 수 있는 600여 종의 국내외 보드게임들과 다채로운 프로그램들을 만나보세요!</p>
+                            <a href="http://www.boardgamecon.com/" class="btn btn-default btn-small btn-framed btn-rounded">More</a>
                         </div>
                     </div>
                     <!--end gallery-item-->
                 </div>
                 <!--end gallery-carousel-->
+                <!-- 행사 관련 캐러셀 시작 -->
             </div>
             <!--end container-->
             <div class="bg opacity-30">
@@ -232,20 +236,18 @@ h1,h2,input{
         <!--end block-->
 
 
-
-		<!-- 쿠폰? 자리 -->
-        <div class="container">
-            <div class="block">
+		
+		<!-- 메인 리뷰 자리 -->
+        <div class="container" style="padding-top: 70px;">
+            <div class="block" style="padding: 40px 0; ">
                 <form class="marketing-form">
                     <div class="row">
                         <div class="col-md-10 col-md-offset-1">
                             <div class="form-group-inline vertical-align-middle no-margin">
-                                <div class="form-group">
-                                    <h3 class="font-color-white no-margin">첫 숙소 예약은 반값에!</h3>
-                                    <p class="font-color-white no-margin">쿠폰 받아 가세요</p>
-                                </div>
-                                <div class="form-group width-50">
-                                    <button style="width: 100px; height: 80px;">쿠폰 받기</button>
+                                <div class="form-group" style="text-align: center;">
+                                    <h2 class="font-color-white no-margin" style="font-size: 30px;">서울 어때를 이용하신 고객님들의 최신 숙박 후기!</h2>
+                                    <br/>
+                                    <p class="font-color-white no-margin" style="font-size: 17px;">다양한 이용경험을 보고 마음에 드는 숙소를 골라보세요!</p>
                                 </div>
                             </div>
                         </div>
@@ -259,56 +261,25 @@ h1,h2,input{
        
 
 
-		<!-- 메인페이지 리뷰 목록 보여주는곳? -->
-        <div class="container">
+		<div class="container" style="padding-bottom: 100px;">
             <div class="block">
-                <div class="title">
-                    <h2>Reviews</h2>
+                <div class="title" style="margin-bottom: 10px;">
                     <div class="row">
+                    <div th:if = "${#lists.size(reviewData)}!=null" th:each="dto:${reviewData}">
                         <div class="col-md-3 col-sm-3">
                             <div class="review-single">
-								<a href="detail.html#reviews"><h3>리뷰 0</h3></a>
-                                <figure class="location">역삼역</figure>
-                                <div class="rating"><i class="fa fa-star"></i>8.9</div>
-                                <p>상세 리뷰 기재하는 칸</p>
-                                <a href="detail.html#reviews" class="link icon">Full Review<i class="arrow_right"></i></a>
+								<a th:href="@{|/detail?hotel_id=${dto.HOTEL_ID}&check_in=${check_in_day}&check_out=${check_out_day}|}"><h2>[[${dto.HOTEL_NAME}]]</h2></a>
+                                <figure class="location" style="margin-top: 22px; font-weight: 600; font-size: 17px;">[[${dto.USERNAME}]] <span style="font-size: 13px;">님</span>
+                                <span style="font-size: 13px; color: #00BFFF; margin-bottom:10px; font-weight: bold;"> (<i class="fa fa-star"></i> [[${dto.SCORE}]])</span></figure>
+                                <div class="rating" style="font-size: 13px; margin-bottom:10px; font-weight: bold; margin-left: 0px;"><i class="fa fa-clock-o"></i>[[${dto.CREATED}]]</div>
+                                <p>[[${dto.CONTEXT}]]</p>
                             </div>
-                            <!--end review-->
+                            <!--end review single-->
                         </div>
                         <!--end col-md-3-->
-                        <div class="col-md-3 col-sm-3">
-                            <div class="review-single">
-                               <a href="detail.html#reviews"><h3>리뷰 1</h3></a>
-                                <figure class="location">교대역</figure>
-                                <div class="rating"><i class="fa fa-star"></i>8.2</div>
-                                <p>상세 리뷰 기재하는 칸</p>
-                                <a href="detail.html#reviews" class="link icon">Full Review<i class="arrow_right"></i></a>
-                            </div>
-                            <!--end review-->
+                        
                         </div>
-                        <!--end col-md-3-->
-                        <div class="col-md-3 col-sm-3">
-                            <div class="review-single">
-                               <a href="detail.html#reviews"><h3>리뷰 2</h3></a>
-                                <figure class="location">강남구</figure>
-                                <div class="rating"><i class="fa fa-star"></i>9.3</div>
-                                <p>상세 리뷰 기재하는 칸</p>
-                                <a href="detail.html#reviews" class="link icon">Full Review<i class="arrow_right"></i></a>
-                            </div>
-                            <!--end review-->
-                        </div>
-                        <!--end col-md-3-->
-                        <div class="col-md-3 col-sm-3">
-                            <div class="review-single">
-                                <a href="detail.html#reviews"><h3>리뷰 3</h3></a>
-                                <figure class="location">강남구</figure>
-                                <div class="rating"><i class="fa fa-star"></i>9.4</div>
-                                <p>상세 리뷰 기재하는 칸</p>
-                                <a href="detail.html#reviews" class="link icon">Full Review<i class="arrow_right"></i></a>
-                            </div>
-                            <!--end review-->
-                        </div>
-                        <!--end col-md-3-->
+                        <!-- th : if of end -->
                     </div>
                     <!--end row-->
                 </div>
@@ -323,6 +294,7 @@ h1,h2,input{
 
 
 <script>
+	//datepicker 캘린더 출력 한글패치 세팅
     $.datepicker.setDefaults({
         dateFormat: 'yy-mm-dd',
         prevText: '이전 달',
@@ -336,12 +308,15 @@ h1,h2,input{
         yearSuffix: '년'
     });
 	
+	
     $(function() {
     	  var today = new Date();
     	  var selectedDate;
     	  var dp1 = jQuery.noConflict();
     	  var dp2 = jQuery.noConflict();
     	  
+    	  //체크인 날짜를 초기값으로 오늘 날짜로 설정 및 이전 날짜를 비활성화
+    	  //체크아웃 날짜의 초기값을 체크인 날짜 +1일로 자동 설정후 이전 날짜를 비활성화
     	  $("#datepicker1").datepicker({
     	    minDate: today,
     	    onSelect: function(date) {
@@ -351,6 +326,7 @@ h1,h2,input{
     	    }
     	  });
     	  
+    	  //체크인 날짜를 먼저 선택해야 체크아웃 날짜를 선택하게끔
     	  $("#datepicker2").datepicker({
     		minDate: selectedDate,
     		beforeShow: function(input, inst) {
@@ -371,6 +347,18 @@ h1,h2,input{
 
 <script type="text/javascript">
 	
+	
+	//엔터키를 누르면 검색이 되게함
+	function handleEnterKey(event) {
+	    if (event.keyCode === 13) { // 엔터키의 key code는 13
+	       search();
+	    }
+	}
+	
+	// 이벤트 핸들러 등록
+	document.addEventListener('keydown', handleEnterKey);
+	
+	
 	//일반검색
 	function search() {
 		
@@ -384,6 +372,8 @@ h1,h2,input{
 		
 	}
 	
+	
+	//아래 6개는 카테고리 검색 함수
 	function hotel() {
 		
 		var f = document.myForm1;
@@ -467,6 +457,7 @@ h1,h2,input{
 	    f.submit();
 	    
 	}
+	
 	
 	
 	//체크인 날짜가 입력 안됐을때 오늘 날짜로 디폴트 설정
